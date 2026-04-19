@@ -2,13 +2,32 @@
 
 import { useState, useEffect } from "react";
 
+// 1. Define the structure (Crucial for TypeScript builds)
+interface Enrollee {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  applicantId: string;
+  program: string;
+  dateOfBirth: string;
+  gender: string;
+  nationality: string;
+  address: string;
+  highSchool: string;
+  graduationYear: string;
+  gpa: string;
+  emergencyContact: string;
+}
+
 export default function EnrolleeDetailsPage() {
-  const [enrollee, setEnrollee] = useState(null);
+  // Initialize with the interface or null
+  const [enrollee, setEnrollee] = useState<Enrollee | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Simulating API Fetch
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setEnrollee({
         firstName: "Jb",
         lastName: "Ramirez",
@@ -27,9 +46,12 @@ export default function EnrolleeDetailsPage() {
       });
       setLoading(false);
     }, 500);
+    
+    return () => clearTimeout(timer); // Cleanup timer on unmount
   }, []);
 
-  if (loading) {
+  // 2. Guard Clause: If loading OR enrollee hasn't populated yet
+  if (loading || !enrollee) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
         <p className="text-gray-400 font-medium animate-pulse">Loading profile...</p>
@@ -87,9 +109,11 @@ export default function EnrolleeDetailsPage() {
                   In Case of Emergency
                 </label>
                 <div className="flex flex-col md:flex-row justify-between items-center gap-2">
-                  <span className="text-sm font-bold text-gray-800">{enrollee.emergencyContact.split(' - ')[0]}</span>
+                  <span className="text-sm font-bold text-gray-800">
+                    {enrollee.emergencyContact?.split(' - ')[0]}
+                  </span>
                   <span className="text-sm font-mono font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-lg">
-                    {enrollee.emergencyContact.split(' - ')[1]}
+                    {enrollee.emergencyContact?.split(' - ')[1]}
                   </span>
                 </div>
               </div>
@@ -104,7 +128,7 @@ export default function EnrolleeDetailsPage() {
 
 /* REUSABLE UI COMPONENTS */
 
-function Card({ title, children }) {
+function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
       <h2 className="text-xs font-black text-gray-400 uppercase tracking-[0.2em] mb-6 border-b border-gray-50 pb-4">
@@ -115,11 +139,11 @@ function Card({ title, children }) {
   );
 }
 
-function Grid({ children }) {
+function Grid({ children }: { children: React.ReactNode }) {
   return <div className="grid md:grid-cols-2 gap-x-12 gap-y-6">{children}</div>;
 }
 
-function Field({ label, value }) {
+function Field({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <label className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider block mb-1">

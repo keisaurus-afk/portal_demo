@@ -3,15 +3,38 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+// 1. Define the Interface (Prevents "Object is possibly null" errors)
+interface EnrolleeData {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  applicantId: string;
+  program: string;
+  applicationStatus: string;
+  dateOfBirth: string;
+  gender: string;
+  nationality: string;
+  address: string;
+  highSchool: string;
+  graduationYear: string;
+  gpa: string;
+  emergencyContact: string;
+  applicationDate: string;
+  preferredStartDate: string;
+  specialNeeds: string;
+}
+
 export default function AdminEnrolleeDetailsPage() {
   const router = useRouter();
 
-  const [enrollee, setEnrollee] = useState(null);
+  const [enrollee, setEnrollee] = useState<EnrolleeData | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setEnrollee({
         id: 1,
         firstName: "Jb",
@@ -35,10 +58,12 @@ export default function AdminEnrolleeDetailsPage() {
       });
       setLoading(false);
     }, 500);
+    return () => clearTimeout(timer);
   }, []);
 
-  const handleInputChange = (field, value) => {
-    setEnrollee((prev) => ({ ...prev, [field]: value }));
+  const handleInputChange = (field: keyof EnrolleeData, value: string) => {
+    if (!enrollee) return;
+    setEnrollee((prev) => (prev ? { ...prev, [field]: value } : null));
   };
 
   const handleSave = () => {
@@ -46,7 +71,8 @@ export default function AdminEnrolleeDetailsPage() {
     setIsEditing(false);
   };
 
-  if (loading) {
+  // 2. Strict Guard Clause
+  if (loading || !enrollee) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         Loading...
@@ -65,7 +91,6 @@ export default function AdminEnrolleeDetailsPage() {
           </button>
 
           <div className="flex gap-3">
-
             <span className={`px-3 py-1 rounded-full text-sm ${
               enrollee.applicationStatus === "Pending"
                 ? "bg-yellow-100 text-yellow-800"
@@ -88,7 +113,6 @@ export default function AdminEnrolleeDetailsPage() {
                 Edit Application
               </button>
             )}
-
           </div>
         </div>
 
@@ -101,12 +125,8 @@ export default function AdminEnrolleeDetailsPage() {
           <p className="text-sm">Applicant ID: {enrollee.applicantId}</p>
         </div>
 
-        {/* GRID */}
         <div className="grid lg:grid-cols-3 gap-6">
-
-          {/* LEFT */}
           <div className="lg:col-span-2 space-y-6">
-
             <Card title="Personal Information">
               <Grid>
                 <Field label="Email" value={enrollee.email} isEditing={isEditing} onChange={(v)=>handleInputChange("email", v)} />
@@ -133,12 +153,9 @@ export default function AdminEnrolleeDetailsPage() {
             <Card title="Emergency Contact">
               <Field value={enrollee.emergencyContact} isEditing={isEditing} onChange={(v)=>handleInputChange("emergencyContact", v)} />
             </Card>
-
           </div>
 
-          {/* RIGHT Sections*/}
           <div className="space-y-6">
-
             <Card title="Application Details">
               <Field label="Status" value={enrollee.applicationStatus} isEditing={isEditing} onChange={(v)=>handleInputChange("applicationStatus", v)} />
               <Field label="Application Date" value={enrollee.applicationDate} isEditing={isEditing} onChange={(v)=>handleInputChange("applicationDate", v)} />
@@ -146,34 +163,22 @@ export default function AdminEnrolleeDetailsPage() {
               <Field label="Special Needs" value={enrollee.specialNeeds} isEditing={isEditing} onChange={(v)=>handleInputChange("specialNeeds", v)} />
             </Card>
 
-            
-
-            {/* FILES */}
             <Card title="Requirements / Files">
-
               <FileItem name="Birth Certificate.pdf" status="Uploaded" />
               <FileItem name="High School Diploma.pdf" status="Uploaded" />
               <FileItem name="Form137.pdf" status="Pending" />
-
             </Card>
 
-            {/* QUICK ACTIONS MOVED TO BOTTOM */}
             <Card title="Quick Actions">
-
               <div className="grid grid-cols-2 gap-3">
-
                 <button className="bg-green-100 text-green-700 py-2 px-4 rounded-lg hover:bg-green-200 text-sm font-medium">
-                  Accept Application
+                  Accept
                 </button>
-
                 <button className="bg-red-100 text-red-700 py-2 px-4 rounded-lg hover:bg-red-200 text-sm font-medium">
-                  Reject Application
+                  Reject
                 </button>
-
               </div>
-
             </Card>
-
           </div>
         </div>
       </div>
@@ -181,9 +186,9 @@ export default function AdminEnrolleeDetailsPage() {
   );
 }
 
-/* COMPONENTS */
+/* 3. PROPS TYPING FOR COMPONENTS */
 
-function Card({ title, children }) {
+function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="bg-white p-6 rounded-xl shadow space-y-4">
       <h2 className="font-semibold text-lg">{title}</h2>
@@ -192,35 +197,33 @@ function Card({ title, children }) {
   );
 }
 
-function Grid({ children }) {
+function Grid({ children }: { children: React.ReactNode }) {
   return <div className="grid md:grid-cols-2 gap-4">{children}</div>;
 }
 
-function Field({ label, value, isEditing, onChange }) {
+function Field({ label, value, isEditing, onChange }: { label?: string; value: string; isEditing?: boolean; onChange?: (val: string) => void }) {
   return (
     <div>
       {label && <label className="text-sm text-gray-500">{label}</label>}
-      {isEditing ? (
+      {isEditing && onChange ? (
         <input
           value={value}
-          onChange={(e)=>onChange(e.target.value)}
+          onChange={(e) => onChange(e.target.value)}
           className="w-full border px-3 py-2 rounded-md"
         />
       ) : (
-        <p>{value}</p>
+        <p className="font-medium text-gray-800">{value}</p>
       )}
     </div>
   );
 }
 
-function FileItem({ name, status }) {
+function FileItem({ name, status }: { name: string; status: string }) {
   return (
     <div className="flex justify-between items-center border p-3 rounded-lg">
       <span className="text-sm">{name}</span>
       <span className={`text-xs px-2 py-1 rounded-full ${
-        status === "Uploaded"
-          ? "bg-green-100 text-green-700"
-          : "bg-yellow-100 text-yellow-700"
+        status === "Uploaded" ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"
       }`}>
         {status}
       </span>
