@@ -44,26 +44,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Quick Links */}
-          <div className="footer-column">
-            <h3 className="text-[1.3rem] mb-5 relative pb-[10px] after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-[50px] after:height-[2px] after:bg-[#FFD700]">
-              Quick Links
-            </h3>
-            <ul className="space-y-[10px] text-sm">
-              {['Home', 'Programs', 'Admission', 'About Us'].map((link) => (
-                <li key={link}>
-                  <Link href="#" className="text-[#ecf0f1] transition-colors duration-300 hover:text-[#FFD700]">
-                    {link}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Copyright Section */}
-        <div className="text-center pt-5 border-t border-[#34495e] color-[#bdc3c7] text-sm">
-          <p>Copyright © 2009 · Saint Gregory College of Science and Technology</p>
+          
         </div>
       </div>
     </footer>

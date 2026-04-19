@@ -20,7 +20,11 @@ export default function EnrollmentPage() {
               <td className="px-6 py-4">Jb Ramirez</td>
               <td className="px-6 py-4">TVL-ICT</td>
               <td className="px-6 py-4"><span className="px-2 bg-yellow-100 text-yellow-800 rounded-full text-xs">Pending</span></td>
-              <td className="px-6 py-4 text-blue-600 cursor-pointer">View</td>
+              <td className="px-6 py-4 text-blue-600 cursor-pointer">
+                <a href="/Portal/admin/enrollment/information" className="text-blue-600 hover:underline">
+                View
+                </a>
+              </td>
             </tr>
           </tbody>
         </table>

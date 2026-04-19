@@ -6,13 +6,10 @@ export default function Portal() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    /* Background Wrapper: Replaces the 'body' styles with a full-screen gradient */
     <div className="min-h-screen w-full flex justify-center items-center p-5 bg-[linear-gradient(135deg,#f80c0c_0%,#b9da02_100%)]">
-      
-      {/* Login Container: Replaces '.login-container' with Glassmorphism classes */}
+
       <div className="relative w-full max-w-[450px] bg-white/95 backdrop-blur-[10px] rounded-[30px] shadow-[0_15px_35px_rgba(0,0,0,0.2)] p-10 text-center">
-        
-        {/* Back Button: Absolute positioned to the top-left of the white box */}
+
         <Link 
           href="/Home" 
           className="absolute top-5 left-5 flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-200/50 transition-all z-50 text-gray-600"
@@ -101,7 +98,7 @@ export default function Portal() {
         </form>
 
         <Link 
-          href="#" 
+          href="/Portal/forgot-password" 
           className="inline-block mt-6 text-[#2575fc] text-sm hover:underline"
         >
           Forgot Password?

@@ -14,8 +14,7 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    // Changed bg-blue-800 to bg-yellow-500 (Primary yellow base)
-    <div className="w-64 bg-yellow-500 text-yellow-950 flex flex-col h-full shrink-0 shadow-lg">
+    <div className="w-64 bg-yellow-400 text-yellow-950 flex flex-col h-full shrink-0 shadow-lg">
       
       {/* Header section with a slightly darker yellow border */}
       <div className="p-5 border-b border-yellow-600">

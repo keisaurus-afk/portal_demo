@@ -18,87 +18,104 @@ export default function Home() {
   };
 
   return (
-    /* 1. Use min-h-screen and flex-col to push footer to bottom */
     <div className="min-h-screen flex flex-col bg-gray-50">
       
-      {/* 2. flex-grow ensures this main area fills all available space */}
-      <main className="flex-grow flex justify-center items-start px-4 py-8">
+      <main className="flex-grow flex justify-center items-start px-4 pt-24 pb-20">
         <div className="w-full max-w-4xl">
-          {/* Title */}
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">
+          
+          {/* --- HEADER SECTION --- */}
+          <div className="text-center mb-16 h-20">
+            <h2 className="text-4xl font-bold mb-6 ">
               Student Admission Application
             </h2>
-            <p className="text-gray-600">
+            
+            <p className="text-gray-600 mt-4">
               Complete your admission application below.
             </p>
           </div>
 
-          {/* Form */}
-          <div className="bg-white rounded-xl shadow-lg p-8 mx-auto mb-20">
+
+          {/* --- FORM START --- */}
+          <div className="mx-auto">
             <form onSubmit={handleSubmit}>
-              {/* Personal Info */}
-              <h3 className="text-2xl font-semibold mb-6">
+              
+
+              {/* SECTION: PERSONAL INFO */}
+              <h3 className="text-2xl font-semibold mb-8">
                 Personal Information
               </h3>
 
-              <div className="grid md:grid-cols-2 gap-6 mb-10">
+              <div className="grid md:grid-cols-2 gap-6 mb-12">
                 <input
                   name="firstName"
                   placeholder="First Name"
-                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full"
+                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full bg-white"
                   required
                 />
+                
                 <input
                   name="middleName"
                   placeholder="Middle Name"
-                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full"
+                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full bg-white"
                 />
+                
                 <input
                   name="lastName"
                   placeholder="Last Name"
-                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full"
+                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full bg-white"
                   required
                 />
+                
                 <input
                   type="email"
                   name="email"
                   placeholder="Email"
-                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full"
+                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full bg-white"
                   required
                 />
+                
                 <input
                   name="phone"
                   placeholder="Phone"
-                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full"
+                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full bg-white"
                   required
                 />
+                
                 <input
                   type="date"
                   name="dob"
-                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full"
+                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full bg-white"
                   required
                 />
+                
                 <select
                   name="gender"
-                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full"
+                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full bg-white"
                   required
                 >
                   <option value="">Select Gender</option>
                   <option>Male</option>
                   <option>Female</option>
                 </select>
+
+                <input
+                  name="nationality"
+                  placeholder="Nationality"
+                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full bg-white"
+                  required
+                />
               </div>
 
-              {/* Academic */}
-              <h3 className="text-2xl font-semibold mb-6">
+
+              {/* SECTION: ACADEMIC INFO */}
+              <h3 className="text-2xl font-semibold mb-8 mt-16">
                 Academic Information
               </h3>
 
-              <div className="grid md:grid-cols-2 gap-6 mb-10">
+              <div className="grid md:grid-cols-2 gap-6 mb-12">
                 <select
                   name="program"
-                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full"
+                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full bg-white"
                   required
                 >
                   <option value="">Program</option>
@@ -109,47 +126,50 @@ export default function Home() {
                 <input
                   name="yearGraduated"
                   placeholder="Year Graduated"
-                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full"
+                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full bg-white"
                   required
                 />
 
                 <input
                   name="gpa"
                   placeholder="GPA"
-                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full"
+                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full bg-white"
                   required
                 />
+                
                 <input
                   name="school"
                   placeholder="Previous School"
-                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full"
-                  required      
+                  className="border border-gray-300 rounded-lg px-4 h-14 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full bg-white"
+                  required
                 />
               </div>
 
-              {/* Additional */}
-              <h3 className="text-2xl font-semibold mb-6">
+
+              {/* SECTION: ADDITIONAL INFO */}
+              <h3 className="text-2xl font-semibold mb-8 mt-16">
                 Additional Information
               </h3>
 
-              <div className="space-y-6 mb-10">
+              <div className="space-y-6 mb-12">
                 <textarea
                   name="address"
                   placeholder="Address"
-                  className="border border-gray-300 rounded-lg px-4 py-3 h-20 w-full focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                  className="border border-gray-300 rounded-lg px-4 py-3 h-24 w-full focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-white"
                   required
                 />
+                
                 <textarea
                   name="statement"
                   placeholder="Personal Statement"
-                  className="border border-gray-300 rounded-lg px-4 py-3 h-20 w-full focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                  className="border border-gray-300 rounded-lg px-4 py-3 h-32 w-full focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-white"
                   required
                 />
 
-                {/* File Upload */}
-                <div className="border-2 border-dashed border-gray-300 p-10 h-15 text-center rounded-lg">
-                  <p className="mb-3">Upload Documents</p>
-
+                {/* FILE UPLOAD BOX */}
+                <div className="border-2 border-dashed border-gray-300 p-12 text-center rounded-lg bg-gray-100/30">
+                  <p className="mb-6">Upload Documents</p>
+                  
                   <input
                     type="file"
                     multiple
@@ -160,26 +180,38 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="bg-gray-200 px-30 py-12  rounded-lg hover:bg-gray-300 transition"
+                    className="bg-gray-200 px-10 py-3 rounded-lg hover:bg-gray-300 transition"
                   >
                     Browse Files
                   </button>
                 </div>
               </div>
 
-              {/* Terms */}
-              <div className="mb-6 flex items-start gap-2">
-                <input type="checkbox" required className="mt-1" />
-                <span>I agree to terms and conditions</span>
+
+              {/* TERMS & CONDITIONS */}
+              <div className="mb-12 flex items-center gap-3">
+                <input type="checkbox" required className="w-4 h-4" />
+                
+                <span className="text-gray-700">
+                  I agree to terms and conditions
+                </span>
               </div>
 
-              <button className="w-full bg-indigo-600 text-white py-4 rounded-lg hover:bg-indigo-700 transition">
-                Submit Application
-              </button>
+
+              {/* SUBMIT BUTTON */}
+              <div className="mt-16">
+                <button className="w-full bg-indigo-600 text-white py-4 h-10 rounded-lg hover:bg-indigo-700 transition font-bold text-lg">
+                  Submit Application
+                </button>
+              </div>
+
             </form>
           </div>
+          {/* --- FORM END --- */}
+
         </div>
       </main>
+
     </div>
   );
 }
