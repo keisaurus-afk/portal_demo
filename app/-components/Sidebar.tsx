@@ -43,7 +43,7 @@ export default function Sidebar() {
 
       <div className="p-4 border-t border-yellow-500/30">
         <button 
-          onClick={() => window.location.href = "/Portal/students-portal/"}
+          onClick={() => window.location.href = "/Portal/log-in"}
           className="flex items-center w-full px-4 py-3 text-red-700 rounded-lg hover:bg-red-50 transition-colors font-semibold"
         >
           <i className="fas fa-sign-out-alt mr-3 w-5 text-center"></i>

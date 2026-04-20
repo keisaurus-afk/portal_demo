@@ -21,7 +21,7 @@ const Sidebar = () => {
   const handleLogout = () => {
     // If you use NextAuth, simply call: signOut({ callbackUrl: '/login' });
     console.log("User logged out");
-    window.location.href = '/login'; // Manual redirect fallback
+    window.location.href = '/Portal/log-in'; 
   };
 
   return (

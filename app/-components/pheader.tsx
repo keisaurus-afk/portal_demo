@@ -38,7 +38,7 @@ const Header: React.FC = () => {
           {/* Action Button */}
           <div className="flex items-center">
             <Link 
-              href="/Portal/students-portal" 
+              href="/Portal/log-in" 
               className="login-btn bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition"
             >
               Login

@@ -45,7 +45,7 @@ export default function Sidebar() {
 
       {/* Logout */}
       <Link 
-        href="/auth/students-portal" 
+        href="/Portal/log-in" 
         className="flex items-center w-full px-6 py-3 text-yellow-900 hover:bg-yellow-600 hover:text-white transition rounded-lg"
         >
         <i className="fas fa-sign-out-alt mr-3"></i> 
