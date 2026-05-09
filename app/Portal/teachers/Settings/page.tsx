@@ -10,11 +10,11 @@ const SettingsPage = () => {
         <div className="grid grid-cols-1 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">Display Name</label>
-            <input type="text" defaultValue="Mr. Johnson" className="mt-1 block w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            <input type="text" defaultValue="Mr. Sean Santiago" className="mt-1 block w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">Email Address</label>
-            <input type="email" defaultValue="johnson.teacher@school.edu" className="mt-1 block w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            <input type="email" defaultValue="sean.santiago@school.edu" className="mt-1 block w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
           </div>
         </div>
         <button className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition">

@@ -16,26 +16,22 @@ export default function ForgotPasswordPage() {
     <main className="min-h-screen flex items-center justify-center p-5 bg-gradient-to-br from-red-600 to-lime-400">
       <div className="w-full max-w-md text-center bg-white rounded-2xl p-10 shadow-2xl">
         
-        {/* Icon */}
         <div className="text-5xl mb-4">🔑</div>
 
-        {/* Title */}
         <h1 className="text-3xl font-bold text-slate-800 relative mb-3">
           Forgot Password
           <span className="block w-24 h-1 bg-gradient-to-r from-red-600 to-lime-400 mx-auto mt-2 rounded-full"></span>
         </h1>
 
-        {/* Subtitle */}
         <p className="text-gray-500 mb-6">
           Reset your account password
         </p>
 
-        {/* Info Message */}
+
         <div className="bg-blue-50 text-blue-700 border-l-4 border-blue-500 p-4 rounded-lg text-sm mb-6 text-left">
           Enter your email address and we&apos;ll send you a link to reset your password.
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="text-left">
           <label className="block mb-2 font-medium text-slate-700">
             Email Address
@@ -60,7 +56,7 @@ export default function ForgotPasswordPage() {
 
         {/* Back link */}
         <a
-          href="/Portal/students-portal"
+          href="/Portal/log-in"
           className="inline-block mt-4 text-blue-500 hover:underline font-medium"
         >
           ← Back to Login

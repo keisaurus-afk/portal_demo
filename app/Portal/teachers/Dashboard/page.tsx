@@ -1,5 +1,5 @@
 "use client";
-import { Bar, Doughnut } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,10 +8,9 @@ import {
   Title,
   Tooltip,
   Legend,
-  ArcElement,
 } from 'chart.js';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 export default function Dashboard() {
   const gradeData = {
@@ -20,14 +19,6 @@ export default function Dashboard() {
       label: 'Students',
       data: [35, 42, 28, 12, 5],
       backgroundColor: ['#4ade80', '#86efac', '#fde047', '#fdba74', '#fca5a5'],
-    }]
-  };
-
-  const attendanceData = {
-    labels: ['Present', 'Absent'],
-    datasets: [{
-      data: [110, 18],
-      backgroundColor: ['#4ade80', '#f87171'],
     }]
   };
 
@@ -46,16 +37,19 @@ export default function Dashboard() {
         <StatCard title="Upcoming Events" value="3" icon="fa-calendar-check" color="purple" />
       </div>
 
-      {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      {/* Charts Section - Now constrained to a smaller width */}
+      <div className="max-w-2xl mb-6">
         <div className="bg-white p-6 rounded-xl shadow-sm">
           <h3 className="font-bold text-lg mb-4">Grade Distribution</h3>
-          <Bar data={gradeData} options={{ responsive: true, plugins: { legend: { display: false } } }} />
-        </div>
-        <div className="bg-white p-6 rounded-xl shadow-sm">
-          <h3 className="font-bold text-lg mb-4">Class Attendance</h3>
-          <div className="max-w-[300px] mx-auto">
-            <Doughnut data={attendanceData} />
+          <div className="h-[250px]"> {/* Fixed height container */}
+            <Bar 
+              data={gradeData} 
+              options={{ 
+                responsive: true, 
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } } 
+              }} 
+            />
           </div>
         </div>
       </div>
@@ -67,32 +61,15 @@ interface StatCardProps {
   title: string;
   value: string | number;
   icon: string;
-  color: 'blue' | 'green' | 'yellow' | 'purple'; // Restricts colors to valid keys
+  color: 'blue' | 'green' | 'yellow' | 'purple';
 }
 
 function StatCard({ title, value, icon, color }: StatCardProps) {
-  // We define the mapping with specific Tailwind classes
   const colorMapping = {
-    blue: {
-      border: "border-blue-500",
-      bg: "bg-blue-100",
-      text: "text-blue-500"
-    },
-    green: {
-      border: "border-green-500",
-      bg: "bg-green-100",
-      text: "text-green-500"
-    },
-    yellow: {
-      border: "border-yellow-500",
-      bg: "bg-yellow-100",
-      text: "text-yellow-500"
-    },
-    purple: {
-      border: "border-purple-500",
-      bg: "bg-purple-100",
-      text: "text-purple-500"
-    }
+    blue: { border: "border-blue-500", bg: "bg-blue-100", text: "text-blue-500" },
+    green: { border: "border-green-500", bg: "bg-green-100", text: "text-green-500" },
+    yellow: { border: "border-yellow-500", bg: "bg-yellow-100", text: "text-yellow-500" },
+    purple: { border: "border-purple-500", bg: "bg-purple-100", text: "text-purple-500" }
   };
 
   const selectedColor = colorMapping[color];

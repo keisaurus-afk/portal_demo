@@ -1,12 +1,10 @@
-"use client"; // This must be the very first line
+"use client"; 
 
 import React, { useState } from 'react';
 
 export default function ClassSchedule() {
-  // Define your sections
   const sections = ["ICT-101", "ICT-102", "ICT-201", "HRM-101","HRM-102","HRM-201",];
   
-  // State to track the selected section
   const [selectedSection, setSelectedSection] = useState(sections[0]);
 
   return (

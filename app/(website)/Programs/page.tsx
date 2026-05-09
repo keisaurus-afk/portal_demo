@@ -14,21 +14,17 @@ export default function Program() {
 
   return (
     <section className="py-20 bg-[rgb(250,250,250)]" id="Programs">
-      {/* Container centered and max-width set to keep everything tight */}
       <div className="max-w-7xl mx-auto px-4 flex flex-col items-center">
         
-        {/* Section Title */}
         <div className="text-center mb-[50px]">
           <h2 className="text-[2.5rem] font-bold text-[#2c3e50] mb-[15px]">
-            Our Academic Programs
+            Our Tracks and Strands
           </h2>
           <p className="text-[#7f8c8d] max-w-[600px] mx-auto">
-            Discover our range of cutting-edge programs designed to prepare
-            students for the future.
+            Explore our innovative academic pathways designed to equip students for the challenges of tomorrow.
           </p>
         </div>
 
-        {/* Program List - Each card is now centered and has a max width */}
         <div className="w-full flex flex-col items-center gap-6">
           {programs.map((program, index) => (
             <div 
@@ -39,7 +35,7 @@ export default function Program() {
               <i className="fas fa-graduation-cap"></i>
               </div>
 
-              {/* Right Side: Centered Content */}
+
               <div className="md:w-3/4 p-12 flex flex-col items-center justify-center text-center min-h-[150px]">
               <h3 className="text-xl font-bold text-black mb-2">
                 {program.title}

@@ -23,10 +23,10 @@ export default function Home() {
             mathematics.
           </p>
           <Link
-            href="/Admission"
+            href="/portal/admission"
             className="mt-8 inline-flex items-center justify-center bg-yellow-400 text-[#2c3e50] h-[45px] min-w-[150px] px-8 rounded-full font-bold text-[1rem] leading-none transition-all duration-300 hover:bg-yellow-500 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
-            Enroll Now!
+            Apply Now!
           </Link>
         </div>
       </section>
@@ -56,7 +56,6 @@ export default function Home() {
               key={index}
               className="bg-[rgb(231,231,231)] rounded-[10px] overflow-hidden shadow-sm transition transform hover:-translate-y-1 hover:shadow-lg flex flex-col"
             >
-              {/* Card Image area */}
               <div className="h-[140px] bg-green-500 flex items-center justify-center text-white text-4xl">
                 <i className={`fas ${index === 0 ? 'fa-bullseye' : 'fa-eye'}`}></i>
               </div>
