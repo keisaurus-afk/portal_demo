@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation';
 const navItems = [
   { name: 'Dashboard', href: '/portal/students/dashboard', icon: 'fa-home' },
   { name: 'Student Info', href: '/portal/students/profile', icon: 'fa-user' },
-  { name: 'Payment History', href: '/portal/students/payments', icon: 'fa-credit-card' },
   { name: 'Student Grades', href: '/portal/students/grades', icon: 'fa-chart-bar' },
   { name: 'Student Schedule', href: '/portal/students/schedule', icon: 'fa-calendar-alt' },
   { name: 'Students Evaluation', href: '/portal/students/students-evaluation', icon: 'fa-user'},

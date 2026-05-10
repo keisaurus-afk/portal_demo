@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Log-in",
-  description: "Authenticate if you are a stundent of SGCST",
+  title: "Admission Portal",
+  description: "Authenticate if you are a student of SGCST",
 };
 
 export default function PortalLayout({

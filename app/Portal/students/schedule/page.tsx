@@ -2,16 +2,6 @@
 
 import React from "react";
 
-// 1. Updated interface to include time
-interface Subject {
-  schedCode: string;
-  name: string;
-  teacher: string;
-  day: string;
-  time: string;
-  room: string;
-}
-
 interface CellProps {
   color: 'blue' | 'green' | 'orange' | 'pink' | 'purple' | 'teal';
   subject: string;
@@ -20,58 +10,12 @@ interface CellProps {
 }
 
 export default function Page() {
-  const enrolledSubjects: Subject[] = [
-    { schedCode: "10234", name: "General Mathematics", teacher: "Mr. Santos", day: "Mon/Thu", time: "12:00 - 1:00", room: "Room 201" },
-    { schedCode: "10235", name: "Earth Science", teacher: "Ms. Garcia", day: "Tue/Fri", time: "12:00 - 1:00", room: "Lab 2" },
-    { schedCode: "10236", name: "Intro to Philosophy", teacher: "Ms. Rodriguez", day: "Wednesday", time: "12:00 - 1:00", room: "Room 103" },
-    { schedCode: "10237", name: "Practical Research 1", teacher: "Mr. Lopez", day: "Thursday", time: "1:00 - 2:00", room: "Library" },
-    { schedCode: "10238", name: "Programming 1", teacher: "Ms. Torres", day: "Mon/Wed", time: "1:00 - 2:00", room: "Comp Lab A" },
-    { schedCode: "10239", name: "Physical Education", teacher: "Mr. dela Cruz", day: "Fri", time: "4:00 - 5:00", room: "Gymnasium" },
-    { schedCode: "10240", name: "Komunikasyon at Pananaliksik", teacher: "Mr. Bautista", day: "Tue", time: "3:00 - 4:00", room: "Room 105" },
-    { schedCode: "10241", name: "Oral Communication", teacher: "Ms. Evangelista", day: "Wed", time: "4:00 - 5:00", room: "Audio Visual" },
-    { schedCode: "10242", name: "Intro to Computer Concepts", teacher: "Ms. Torres", day: "Tue/Fri", time: "4:00 - 5:00", room: "Comp Lab B" },
-  ];
-
   const timeClass = 'bg-gray-50 font-black text-gray-400 p-3 text-center border border-gray-100 text-[9px] tracking-tighter border-r-gray-200';
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-start bg-gradient-to-br from-slate-100 to-slate-300 p-2 md:p-10 font-sans gap-8">
       
-      {/* 1. ENROLLED SUBJECTS LIST */}
-      <div className="w-full max-w-7xl bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
-        <div className="bg-black text-white px-6 py-4 flex justify-between items-center">
-          <h2 className="text-sm font-black uppercase tracking-widest">Enrolled Subjects List</h2>
-          <span className="text-[10px] font-bold opacity-60 uppercase">S.Y. 2026-2027</span>
-        </div>
-        <div className="p-0 overflow-x-auto">
-          <table className="w-full text-left border-collapse min-w-[700px]">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="p-4 text-[9px] font-black uppercase tracking-tighter text-gray-400">Sched Code</th>
-                <th className="p-4 text-[9px] font-black uppercase tracking-tighter text-gray-400">Subject</th>
-                <th className="p-4 text-[9px] font-black uppercase tracking-tighter text-gray-400">Day</th>
-                <th className="p-4 text-[9px] font-black uppercase tracking-tighter text-gray-400">Time</th>
-                <th className="p-4 text-[9px] font-black uppercase tracking-tighter text-gray-400">Room</th>
-                <th className="p-4 text-[9px] font-black uppercase tracking-tighter text-gray-400">Instructor</th>
-              </tr>
-            </thead>
-            <tbody>
-              {enrolledSubjects.map((sub, i) => (
-                <tr key={i} className="border-b border-gray-100 hover:bg-slate-50 transition-colors">
-                  <td className="p-4 text-[10px] font-mono font-bold text-indigo-400">{sub.schedCode}</td>
-                  <td className="p-4 text-[11px] font-black text-gray-800 uppercase tracking-tight">{sub.name}</td>
-                  <td className="p-4 text-[10px] font-bold text-gray-600 uppercase">{sub.day}</td>
-                  <td className="p-4 text-[10px] font-bold text-indigo-600 tracking-tighter">{sub.time}</td>
-                  <td className="p-4 text-[10px] font-mono font-bold text-blue-400">{sub.room}</td>
-                  <td className="p-4 text-[10px] font-bold text-gray-400 italic">{sub.teacher}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* 2. CLASS SCHEDULE VISUALIZER */}
+      {/* CLASS SCHEDULE VISUALIZER */}
       <div className="w-full max-w-7xl bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
         <div className="bg-black text-white text-center py-4 md:py-6 border-b border-gray-800">
           <h1 className="text-xl md:text-2xl font-black uppercase tracking-[0.2em]">Weekly Time Grid</h1>

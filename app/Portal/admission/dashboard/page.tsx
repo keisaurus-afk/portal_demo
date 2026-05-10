@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 
-// --- TypeScript Interfaces for Props ---
+
 interface InputFieldProps {
   label: string;
   type?: string;
@@ -15,6 +15,8 @@ interface InputFieldProps {
 interface SelectFieldProps {
   label: string;
   options: string[];
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  disabled?: boolean;
 }
 
 // --- Helper Components ---
@@ -32,11 +34,15 @@ const InputField: React.FC<InputFieldProps> = ({ label, type = "text", placehold
   </div>
 );
 
-const SelectField: React.FC<SelectFieldProps> = ({ label, options }) => (
+const SelectField: React.FC<SelectFieldProps> = ({ label, options, onChange, disabled }) => (
   <div className="flex flex-col gap-2">
     <label className="text-[10px] font-black uppercase text-slate-400 ml-1">{label}</label>
     <div className="relative">
-      <select className="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-yellow-400 transition-all appearance-none text-sm text-slate-700">
+      <select 
+        onChange={onChange}
+        disabled={disabled}
+        className={`w-full p-4 border border-slate-200 rounded-xl outline-none transition-all appearance-none text-sm text-slate-700 ${disabled ? 'bg-slate-100 cursor-not-allowed text-slate-400' : 'bg-slate-50 focus:border-yellow-400'}`}
+      >
         {options.map((opt) => <option key={opt} value={opt}>{opt}</option>)}
       </select>
       <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-400">
@@ -46,16 +52,17 @@ const SelectField: React.FC<SelectFieldProps> = ({ label, options }) => (
   </div>
 );
 
-// --- Main Dashboard Component ---
+
 export default function AdmissionDashboard() {
   const [activeTab, setActiveTab] = useState<'admission' | 'enrollment'>('admission');
   const [isApproved, setIsApproved] = useState<boolean>(false);
+  const [enrollmentType, setEnrollmentType] = useState<string>("");
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-[#1E293B] p-6 md:p-12">
       <div className="max-w-4xl mx-auto">
         
-        {/* Branding Header */}
+
         <div className="mb-10 flex justify-between items-end">
           <div>
             <h1 className="text-4xl font-black text-[#451a03] tracking-tight text-uppercase">SGCST Admission</h1>
@@ -69,10 +76,8 @@ export default function AdmissionDashboard() {
             </a>
         </div>
 
-        {/* Top Status Boxes (Navigation) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           
-          {/* Admission Box */}
           <button 
             onClick={() => setActiveTab('admission')}
             className={`relative p-8 rounded-2xl border-2 transition-all text-left flex flex-col justify-between h-48 shadow-sm ${
@@ -95,7 +100,6 @@ export default function AdmissionDashboard() {
             </div>
           </button>
 
-          {/* Enrollment Box */}
           <button 
             onClick={() => setActiveTab('enrollment')}
             className={`relative p-8 rounded-2xl border-2 transition-all text-left flex flex-col justify-between h-48 shadow-sm ${
@@ -119,11 +123,9 @@ export default function AdmissionDashboard() {
           </button>
         </div>
 
-        {/* Main Form Display Area */}
         <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl shadow-slate-200/50 min-h-[600px]">
           
           {activeTab === 'admission' ? (
-            /* --- ADMISSION FORM --- */
             <div className="animate-in fade-in duration-500">
               <div className="mb-10 pb-4 border-b border-slate-100">
                 <h3 className="text-2xl font-black text-[#451a03]">Personal Information</h3>
@@ -189,7 +191,10 @@ export default function AdmissionDashboard() {
               </form>
             </div>
           ) : (
-            /* --- ENROLLMENT FORM --- */
+
+            
+
+
             <div className="animate-in fade-in duration-500">
               {isApproved ? (
                 <div>
@@ -200,27 +205,27 @@ export default function AdmissionDashboard() {
 
                   <form className="space-y-10" onSubmit={(e) => e.preventDefault()}>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <InputField label="Student ID" readOnly value="SGCST-2026-0001" />
+                      <InputField label="Student ID" readOnly value="2026-0001" />
                       <div className="hidden md:block"></div>
                       <InputField label="Password *" type="password" placeholder="••••••••" />
                       <InputField label="Confirm Password *" type="password" placeholder="••••••••" />
                     </div>
 
-                    <h4 className="text-sm font-black text-amber-600 uppercase tracking-widest mb-6 pt-4">Personal Information</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      <InputField label="Last Name *" placeholder="Dela Cruz" />
-                      <InputField label="First Name *" placeholder="Juan" />
-                      <InputField label="Middle Name" placeholder="Protacio" />
-                      <SelectField label="Suffix" options={["None", "Jr.", "Sr.", "II", "III"]} />
-                    </div>
 
                     <h4 className="text-sm font-black text-amber-600 uppercase tracking-widest mb-6 pt-4">Academic Information</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <SelectField label="Enrollment Type *" options={["Select", "New Student", "Transferee"]} />
-                      <SelectField label="Grade Level *" options={["Select", "Grade 11", "Grade 12"]} />
+                      <SelectField 
+                        label="Enrollment Type *" 
+                        options={["Select", "New Student", "Transferee"]} 
+                        onChange={(e) => setEnrollmentType(e.target.value)}
+                      />
+                      <SelectField 
+                        label="Grade Level *" 
+                        options={["Select", "Grade 11", "Grade 12"]} 
+                        disabled={enrollmentType !== "Transferee"}
+                      />
                       <SelectField label="Track/Strand *" options={["Select your track", "TVL — ICT", "TVL — HRM"]} />
                       <InputField label="LRN" placeholder="12-digit LRN" />
-                      <div className="md:col-span-2"><InputField label="Previous School" placeholder="School Name" /></div>
                     </div>
 
                     <h4 className="text-sm font-black text-amber-600 uppercase tracking-widest mb-6 pt-4">Emergency Contact</h4>

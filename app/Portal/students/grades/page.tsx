@@ -1,16 +1,16 @@
 export default function GradesPage() {
   const grades = [
-    { course: "Computer Programming 1", instructor: "Mr. Raymond Grulla", grade: "95", units: "3", status: "Passed" },
-    { course: "Database Systems", instructor: "Mr. Raymond Grulla", grade: "86", units: "3", status: "Passed" },
-    { course: "Modern Math", instructor: "Ms. Lujimae Quijano", grade: "90", units: "2", status: "Passed" },
+    { course: "Computer Programming 1", Teacher : "Mr. Raymond Grulla", grade: "95", status: "Passed" },
+    { course: "Database Systems", Teacher : "Mr. Raymond Grulla", grade: "86", status: "Passed" },
+    { course: "Modern Math", Teacher : "Ms. Lujimae Quijano", grade: "90", status: "Passed" },
   ];
 
   return (
     <div className="bg-white rounded-xl shadow-sm p-6">
       <div className="mb-8">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">Old Grades</h3>
+        <h3 className="text-lg font-semibold text-gray-800 mb-4">Grades Management</h3>
         
-        {/* Filter and Button Row */}
+  
         <div className="flex flex-col md:flex-row items-end gap-4">
           <div className="flex-1 w-full grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -40,22 +40,22 @@ export default function GradesPage() {
             </div>
           </div>
 
-          {/* Show Grades Button */}
+
           <button className="w-full md:w-auto px-8 h-12 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition-colors shadow-sm whitespace-nowrap">
             Show Grades
           </button>
         </div>
       </div>
 
-      <h3 className="text-lg font-semibold text-gray-800 mb-4">Current Grades</h3>
+      <h3 className="text-lg font-semibold text-gray-800 mb-4">Student Grades</h3>
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200 text-left">
           <thead className="bg-gray-50">
             <tr>
               <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Subjects</th>
-              <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Grade</th>
-              <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Units</th>
-              <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+              <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Teacher</th>
+              <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Grades</th>
+              <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">Remarks</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
@@ -63,12 +63,12 @@ export default function GradesPage() {
               <tr key={idx} className="hover:bg-gray-50 transition-colors">
                 <td className="px-6 py-4">
                   <div className="text-sm font-medium text-gray-900">{g.course}</div>
-                  <div className="text-sm text-gray-500">{g.instructor}</div>
                 </td>
                 <td className="px-6 py-4">
-                  <span className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-blue-100 text-blue-800">{g.grade}</span>
+                  <div className="text-sm font-medium text-gray-900">{g.Teacher}</div>
                 </td>
-                <td className="px-6 py-4 text-sm text-gray-500">{g.units} Units</td>
+                <td className="px-6 py-4">
+                  <span className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-blue-100 text-blue-800">{g.grade}</span></td>
                 <td className="px-6 py-4">
                   <span className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-green-100 text-green-800">{g.status}</span>
                 </td>
