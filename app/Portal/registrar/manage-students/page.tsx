@@ -103,9 +103,12 @@ export default function ManageStudents() {
                   {student.gpa}
                 </td>
                 <td className="py-4 text-right">
-                  <button className="text-blue-600 hover:text-blue-800 text-sm font-medium">
-                    View Details
-                  </button>
+                  <a 
+  href="/portal/registrar/manage-students/information" 
+  className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+>
+  View Details
+</a>
                 </td>
               </tr>
             ))}

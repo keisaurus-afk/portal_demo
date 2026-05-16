@@ -8,6 +8,11 @@ export const metadata = {
   description: 'Manage your academic life',
 };
 
+const events = {
+  5: [{ title: "Meeting", color: "bg-blue-500" }],
+  10: [{ title: "Exam", color: "bg-red-500" }],
+};
+
 export default function RootLayout({
   children,
 }: {

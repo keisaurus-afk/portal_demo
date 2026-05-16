@@ -32,9 +32,9 @@ export default function Dashboard() {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <StatCard title="Total Students" value="128" icon="fa-users" color="blue" />
-        <StatCard title="Classes" value="5" icon="fa-chalkboard-teacher" color="green" />
-        <StatCard title="Pending Grades" value="24" icon="fa-clipboard-list" color="yellow" />
-        <StatCard title="Upcoming Events" value="3" icon="fa-calendar-check" color="purple" />
+        <StatCard title="Classes" value="4" icon="fa-chalkboard-teacher" color="green" />
+        <StatCard title="Pending Grades" value="12" icon="fa-clipboard-list" color="yellow" />
+        <StatCard title="Upcoming Events" value="2" icon="fa-calendar-check" color="purple" />
       </div>
 
       {/* Charts Section - Now constrained to a smaller width */}

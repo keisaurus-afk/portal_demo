@@ -7,8 +7,8 @@ const GradingSheet = () => {
   const [grades, setGrades] = useState<{ [key: string]: number[] }>({});
 
   const schedules = [
-    { code: "101-MATH", subject: "Mathematics", students: ["Dela Cruz, Juan", "Rizal, Jose", "Bonifacio, Andres"] },
-    { code: "202-HIST", subject: "World History", students: ["Luna, Antonio", "Silang, Gabriela"] }
+    { code: "202500001", subject: "Mathematics", students: ["Dela Cruz, Juan", "Rizal, Jose", "Bonifacio, Andres"] },
+    { code: "202500002", subject: "World History", students: ["Luna, Antonio", "Silang, Gabriela"] }
   ];
 
   const activeClass = schedules.find(s => s.code === selectedCode);
@@ -23,24 +23,27 @@ const GradingSheet = () => {
   };
 
   const handleGradeChange = (studentName: string, colIndex: number, e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = parseInt(e.target.value);
-    if (value > 100) value = 100;
-    if (isNaN(value)) value = 0;
-    updateGradeState(studentName, colIndex, value);
+    const value = parseInt(e.target.value);
+    const finalValue = value > 100 ? 100 : isNaN(value) ? 0 : value;
+    updateGradeState(studentName, colIndex, finalValue);
   };
 
   const validateMin = (studentName: string, colIndex: number, e: React.FocusEvent<HTMLInputElement>) => {
-    let value = parseInt(e.target.value);
+    const value = parseInt(e.target.value);
     if (value < 60 || isNaN(value)) {
       updateGradeState(studentName, colIndex, 60);
     }
+  };
+
+  const handleSubmit = () => {
+    alert(`Grades for Schedule Code ${selectedCode} submitted successfully!`);
+    console.log("Submitted Grades Data:", grades);
   };
 
   return (
     <div className="min-h-screen bg-[#FFFDF0] py-10 px-4 font-sans">
       <div className="max-w-5xl mx-auto">
         
-        {/* Header Card */}
         <div className="bg-white border-t-4 border-[#FFD700] p-6 rounded-xl shadow-md mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-black text-[#856404] tracking-tight">Grading Management</h1>
@@ -53,7 +56,7 @@ const GradingSheet = () => {
               onChange={(e) => setSelectedCode(e.target.value)}
               className="bg-gray-50 border-2 border-[#FFD700] text-gray-700 text-sm rounded-lg focus:ring-[#FFD700] block p-2.5 outline-none font-bold"
             >
-              <option value="">Select Schedule Code</option>
+              <option value="">Choose Schedule Code</option>
               {schedules.map(s => <option key={s.code} value={s.code}>{s.code}</option>)}
             </select>
 
@@ -73,7 +76,6 @@ const GradingSheet = () => {
         {activeClass ? (
           <div className="space-y-6">
             
-
             <div className="bg-[#FFF9C4] p-5 rounded-xl border border-[#FBC02D] flex items-center justify-between shadow-sm">
               <div className="flex items-center gap-3">
                 <span className="text-2xl">📄</span>
@@ -87,7 +89,6 @@ const GradingSheet = () => {
               />
             </div>
 
-            {/* Table Container */}
             <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
               <div className="bg-[#28a745] p-4 flex justify-between items-center">
                 <h2 className="text-white font-bold text-lg">
@@ -103,10 +104,10 @@ const GradingSheet = () => {
                   <thead>
                     <tr className="bg-[#FFFDE7] text-[#856404] uppercase text-xs font-black border-b border-[#FFD700]">
                       <th className="px-6 py-5">Student Name</th>
-                      <th className="px-6 py-5 text-center">Grade 1</th>
-                      <th className="px-6 py-5 text-center">Grade 2</th>
-                      <th className="px-6 py-5 text-center">Grade 3</th>
-                      <th className="px-6 py-5 text-center">Grade 4</th>
+                      <th className="px-6 py-5 text-center">Prelim</th>
+                      <th className="px-6 py-5 text-center">Midterm</th>
+                      <th className="px-6 py-5 text-center">Pre-Final</th>
+                      <th className="px-6 py-5 text-center">Final</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
@@ -148,6 +149,20 @@ const GradingSheet = () => {
               <p className="text-[#6c757d] text-[11px] font-bold uppercase tracking-widest">
                 Automatic Constraint: Min 60 | Max 100
               </p>
+            </div>
+
+            <div className="flex justify-end pt-2">
+              <button
+                onClick={handleSubmit}
+                disabled={isEditing}
+                className={`w-full md:w-auto px-10 py-3.5 rounded-xl font-black text-white tracking-wide shadow-lg transition-all transform active:scale-95 ${
+                  isEditing
+                    ? "bg-gray-300 text-gray-500 cursor-not-allowed shadow-none"
+                    : "bg-[#856404] hover:bg-[#6c5103]"
+                }`}
+              >
+                Submit Final Grades
+              </button>
             </div>
           </div>
         ) : (

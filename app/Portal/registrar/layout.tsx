@@ -3,7 +3,7 @@ import Header from '../../-components/aheader';
 import Footer from '../../-components/afooter';
 import Sidebar from '../../-components/rsidebar';    
 
-export const metadata = {
+export const metadata = { 
   title: 'SGCST Registrar Portal',
   description: 'Manage your academic life',
 };

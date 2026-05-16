@@ -57,10 +57,10 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6 p-4 bg-gray-50/50 min-h-screen">
       
-      {/* CALENDAR CARD */}
+
       <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
         
-        {/* HEADER */}
+
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-50">
           <h3 className="text-sm md:text-lg font-black text-slate-800 tracking-tight">
             {monthNames[month]} <span className="text-slate-300 font-light">{year}</span>
