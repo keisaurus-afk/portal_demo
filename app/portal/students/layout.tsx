@@ -6,6 +6,12 @@ import "./globals.css";
 import Sidebar from "../../-components/Sidebar";
 import Header from "../../-components/sheader";
 
+export const metadata = { 
+  title: 'SGCST Students Portal',
+  description: 'centralized digital hub where learners manage their academic lives',
+};
+
+
 export default function RootLayout({
   children,
 }: {
@@ -24,7 +30,6 @@ export default function RootLayout({
 
       <body className="flex h-screen overflow-hidden bg-gray-50">
 
-        {/* Toggle Button */}
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
           className="
@@ -39,7 +44,6 @@ export default function RootLayout({
           {sidebarOpen ? "✕" : "☰"}
         </button>
 
-        {/* Sidebar */}
         <aside
           className={`
             fixed top-0 left-0 h-full w-64 z-40
@@ -51,7 +55,6 @@ export default function RootLayout({
           <Sidebar />
         </aside>
 
-        {/* Main Content */}
         <div
           className={`
             flex-1 flex flex-col overflow-hidden

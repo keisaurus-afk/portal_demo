@@ -23,7 +23,7 @@ export default function Home() {
             mathematics.
           </p>
           <Link
-            href="/portal/admission"
+            href="/admission/registration"
             className="mt-8 inline-flex items-center justify-center bg-yellow-400 text-[#2c3e50] h-[45px] min-w-[150px] px-8 rounded-full font-bold text-[1rem] leading-none transition-all duration-300 hover:bg-yellow-500 hover:-translate-y-0.5 hover:shadow-lg shadow-sm"
             >
             Apply Now!

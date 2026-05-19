@@ -1,93 +1,294 @@
 "use client";
-import React from 'react';
 
-const AdmissionLanding: React.FC = () => {
-  
-  const handleGoogleLogin = () => {
-    console.log("Initiating Google OAuth flow...");
-    window.alert("Redirecting to Google Login...");
+import React, { useState } from 'react';
+
+
+interface InputFieldProps {
+  label: string;
+  type?: string;
+  placeholder?: string;
+  defaultValue?: string;
+  readOnly?: boolean;
+  value?: string;
+  disabled?: boolean;
+}
+
+interface SelectFieldProps {
+  label: string;
+  options: string[];
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  disabled?: boolean;
+}
+
+// --- Helper Components ---
+const InputField: React.FC<InputFieldProps> = ({ label, type = "text", placeholder, defaultValue, readOnly, value, disabled }) => (
+  <div className="flex flex-col gap-2">
+    <label className="text-[10px] font-black uppercase text-slate-400 ml-1">{label}</label>
+    <input 
+      type={type} 
+      placeholder={placeholder} 
+      defaultValue={defaultValue}
+      readOnly={readOnly}
+      value={value}
+      disabled={disabled}
+      className={`w-full p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-yellow-400 transition-all text-sm placeholder:text-slate-300 ${readOnly || disabled ? 'bg-slate-100 cursor-not-allowed text-slate-500 font-bold' : ''}`} 
+    />
+  </div>
+);
+
+const SelectField: React.FC<SelectFieldProps> = ({ label, options, onChange, disabled }) => (
+  <div className="flex flex-col gap-2">
+    <label className="text-[10px] font-black uppercase text-slate-400 ml-1">{label}</label>
+    <div className="relative">
+      <select 
+        onChange={onChange}
+        disabled={disabled}
+        className={`w-full p-4 border border-slate-200 rounded-xl outline-none transition-all appearance-none text-sm text-slate-700 ${disabled ? 'bg-slate-100 cursor-not-allowed text-slate-400' : 'bg-slate-50 focus:border-yellow-400'}`}
+      >
+        {options.map((opt) => <option key={opt} value={opt}>{opt}</option>)}
+      </select>
+      <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-400">
+        <i className="fas fa-chevron-down text-xs"></i>
+      </div>
+    </div>
+  </div>
+);
+
+
+export default function AdmissionDashboard() {
+  const [activeTab, setActiveTab] = useState<'admission' | 'enrollment'>('admission');
+  const [isApproved, setIsApproved] = useState<boolean>(false); // This controls when Enrollment opens AND when Admission locks
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [enrollmentType, setEnrollmentType] = useState<string>("");
+
+  const handleAdmissionSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+    alert("Application submitted successfully! You can still make changes until enrollment is officially opened.");
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col md:flex-row bg-white font-sans text-[#1E293B]">
-      
+    <div className="min-h-screen bg-slate-50 font-sans text-[#1E293B] p-6 md:p-12">
+      <div className="max-w-4xl mx-auto">
+        
 
-      <a 
-        href="/Home" 
-        className="absolute top-6 left-6 z-10 flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full text-white transition-all group no-underline"
-      >
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          className="h-5 w-5 transition-transform group-hover:-translate-x-1" 
-          fill="none" 
-          viewBox="0 0 24 24" 
-          stroke="currentColor"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-        </svg>
-        <span className="font-semibold text-sm">Back</span>
-      </a>
-
-=
-      <div className="w-full md:w-7/12 bg-gradient-to-br from-amber-300 via-amber-500 to-yellow-600 flex flex-col justify-center px-8 md:px-16 py-12">
-        <div className="max-w-2xl">
-          
-=
-          <h1 className="text-5xl md:text-7xl font-black leading-tight mb-6 text-[#451a03] drop-shadow-sm">
-            Saint Gregory <br /> 
-            <span className="text-[#5d2d14] opacity-90 text-4xl md:text-5xl block mt-2">
-              College of Science and Technology
-            </span>
-          </h1>
-          
-
-          <div className="h-1.5 w-24 bg-[#FFFFFF] mb-8"></div>
-          
-          <p className="text-xl md:text-2xl text-[#FFFFFF] font-medium leading-relaxed max-w-lg opacity-80">
-            Empowering the next generation of scientists and innovators through excellence in technical education.
-          </p>
-        </div>
-      </div>
-
-
-      <div className="w-full md:w-5/12 flex flex-col justify-center px-8 md:px-16 py-12 bg-slate-50">
-        <div className="max-w-md w-full">
-          <div className="mb-10">
-            <h2 className="text-3xl font-bold text-slate-800 mb-3">Admission Portal</h2>
-            <p className="text-slate-500">
-              Please sign in with your official Google account to continue your application process.
-            </p>
+        <div className="mb-10 flex justify-between items-end">
+          <div>
+            <h1 className="text-4xl font-black text-[#451a03] tracking-tight text-uppercase">SGCST Admission</h1>
+            <p className="text-slate-500 font-medium italic">Saint Gregory College of Science and Technology</p>
           </div>
+          <a 
+            href="/Home" 
+            className="text-sm font-bold text-slate-400 hover:text-red-600 transition-colors flex items-center"
+          >
+            Back
+          </a>
+        </div>
 
-          <div className="space-y-6">
-            <button
-              onClick={handleGoogleLogin}
-              className="w-full flex items-center justify-center gap-4 bg-[#166534] border-2 border-[#166534] py-4 px-6 rounded-2xl font-bold text-white hover:bg-[#14532d] hover:border-[#14532d] transition-all active:scale-[0.98] shadow-lg shadow-green-900/20 group"
-            >
-              <div className="bg-white p-1.5 rounded-lg">
-                <svg className="w-5 h-5" viewBox="0 0 24 24">
-                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
-                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
-                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
-                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 12-4.53z" fill="#EA4335" />
-                </svg>
-              </div>
-              <span className="text-white tracking-wide">Continue with Google</span>
-            </button>
-
-            <div className="flex items-center gap-3 pt-6 border-t border-slate-200">
-              <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-              <p className="text-[12px] font-bold text-slate-400 uppercase tracking-widest">
-                Identity Verified Session
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          
+   
+          <button 
+            onClick={() => setActiveTab('admission')}
+            className={`relative p-8 rounded-2xl border-2 transition-all text-left flex flex-col justify-between h-48 shadow-sm ${
+              activeTab === 'admission' 
+              ? 'bg-yellow-400 border-yellow-500 text-yellow-950 ring-4 ring-yellow-100' 
+              : 'bg-white border-slate-200 text-slate-400'
+            }`}
+          >
+            <div className="flex justify-between items-start w-full">
+              <i className="fas fa-file-signature text-3xl"></i>
+              <span className={`text-[10px] font-black px-2 py-1 rounded-md uppercase tracking-tighter ${
+                isApproved ? 'bg-green-600 text-white' : (isSubmitted ? 'bg-amber-600 text-white' : 'bg-blue-600 text-white')
+              }`}>
+                {isApproved ? 'Locked' : (isSubmitted ? 'Submitted' : 'Open')}
+              </span>
+            </div>
+            <div>
+              <h2 className="text-2xl font-black">Admission Form</h2>
+              <p className="text-xs font-bold opacity-70 mt-1">
+                Status: {isApproved ? 'Locked (Enrollment Phase Open)' : (isSubmitted ? 'Awaiting Review (Editable)' : 'Awaiting Submission')}
               </p>
             </div>
-          </div>
+          </button>
+
+          <button 
+            onClick={() => setActiveTab('enrollment')}
+            className={`relative p-8 rounded-2xl border-2 transition-all text-left flex flex-col justify-between h-48 shadow-sm ${
+              activeTab === 'enrollment' 
+              ? 'bg-yellow-400 border-yellow-500 text-yellow-950 ring-4 ring-yellow-100' 
+              : 'bg-white border-slate-200 text-slate-400'
+            }`}
+          >
+            <div className="flex justify-between items-start w-full">
+              <i className="fas fa-university text-3xl"></i>
+              <span className={`text-[10px] font-black px-2 py-1 rounded-md uppercase tracking-tighter ${
+                isApproved ? 'bg-green-600 text-white' : 'bg-slate-100 text-slate-400'
+              }`}>
+                {isApproved ? 'Unlocked' : 'Locked'}
+              </span>
+            </div>
+            <div>
+              <h2 className="text-2xl font-black">Enrollment Form</h2>
+              <p className="text-xs font-bold opacity-70 mt-1">Status: {isApproved ? 'Ready for Enlistment' : 'Unlock requires Registrar Approval'}</p>
+            </div>
+          </button>
+        </div>
+
+        <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl shadow-slate-200/50 min-h-[600px]">
+          
+          {activeTab === 'admission' ? (
+            <div className="animate-in fade-in duration-500">
+              <div className="mb-10 pb-4 border-b border-slate-100">
+                <h3 className="text-2xl font-black text-[#451a03]">Personal Information</h3>
+                <p className="text-slate-400 text-sm">
+                  {isApproved ? "Enrollment is now active. Your admission profile has been archived and locked." : "Please provide accurate details for your application."}
+                </p>
+              </div>
+
+              <form className="space-y-10" onSubmit={handleAdmissionSubmit}>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <InputField label="First Name *" placeholder="Juan" disabled={isApproved} />
+                  <InputField label="Middle Name" placeholder="Protacio" disabled={isApproved} />
+                  <InputField label="Last Name *" placeholder="Dela Cruz" disabled={isApproved} />
+                  <InputField label="Email Address *" type="email" placeholder="juan@example.com" disabled={isApproved} />
+                  <InputField label="Phone Number *" placeholder="+63 9xx xxx xxxx" disabled={isApproved} />
+                  <InputField label="Date of Birth *" type="date" disabled={isApproved} />
+                  <SelectField label="Gender *" options={["Select Gender", "Male", "Female", "Other"]} disabled={isApproved} />
+                  <InputField label="Nationality *" placeholder="Filipino" disabled={isApproved} />
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-black text-amber-600 uppercase tracking-widest mb-6 pt-4">Academic Information</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <SelectField label="Desired Track/Strand *" options={["Select a Track", "Information and Communication Technology", "Hotel and Restaurant Management"]} disabled={isApproved} />
+                    <SelectField 
+                      label="Enrollment Type *" 
+                      options={["Select", "New Student", "Transferee"]} 
+                      onChange={(e) => setEnrollmentType(e.target.value)}
+                      disabled={isApproved}
+                    />
+                    
+                    {enrollmentType === "Transferee" && (
+                      <SelectField 
+                        label="Grade Level *" 
+                        options={["Select", "Grade 11", "Grade 12"]} 
+                        disabled={isApproved}
+                      />
+                    )}
+                    
+                    <InputField label="LRN" placeholder="12-digit LRN" disabled={isApproved} />
+                    <InputField label="Last School Attended Name *" placeholder="School Name" disabled={isApproved} />
+                    
+                    {enrollmentType === "Transferee" && (
+                      <SelectField label="Last School Attended Type *" options={["Select Type", "High School", "Junior High School", "Senior High School", "ALS"]} disabled={isApproved} />
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-black text-amber-600 uppercase tracking-widest mb-6 pt-4">Address Details</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="md:col-span-2"><InputField label="Street Address *" placeholder="Unit/House No, Building, Street" disabled={isApproved} /></div>
+                    <InputField label="City / Municipality *" placeholder="Manila" disabled={isApproved} />
+                    <InputField label="State / Province *" placeholder="Metro Manila" disabled={isApproved} />
+                    <InputField label="Zip / Postal Code *" placeholder="1000" disabled={isApproved} />
+                    <InputField label="Country *" placeholder="Philippines" defaultValue="Philippines" disabled={isApproved} />
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-black text-amber-600 uppercase tracking-widest mb-6 pt-4">Requirements & Additional Info</h4>
+                  <div className="space-y-6">
+                    <div className="flex flex-col gap-2">
+                      <label className="text-[10px] font-black uppercase text-slate-400 ml-1">Personal Statement *</label>
+                      <textarea rows={4} disabled={isApproved} className={`w-full p-4 border border-slate-200 rounded-xl outline-none transition-all text-sm ${isApproved ? 'bg-slate-100 text-slate-500 cursor-not-allowed' : 'bg-slate-50 focus:border-yellow-400'}`} placeholder="Why do you want to join SGCST?"></textarea>
+                    </div>
+                    <div className="p-8 border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50 text-center">
+                      <i className="fas fa-upload text-2xl text-slate-300 mb-2"></i>
+                      <p className="text-sm font-bold text-slate-600">Required Documents *</p>
+                      <p className="text-xs text-slate-400 mb-4">Upload Report Card and Birth Certificate (PDF, JPG, PNG)</p>
+                      <button type="button" disabled={isApproved} className={`px-6 py-2 bg-white border border-slate-300 rounded-lg text-[10px] font-black uppercase ${isApproved ? 'opacity-50 cursor-not-allowed' : 'hover:bg-slate-50'}`}>Browse Files</button>
+                    </div>
+                    <label className={`flex items-center gap-3 group ${isApproved ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`}>
+                      <input type="checkbox" disabled={isApproved} checked={isApproved ? true : undefined} className="w-5 h-5 accent-yellow-500 rounded" />
+                      <span className="text-xs font-medium text-slate-500">I certify that all information provided is true and correct.</span>
+                    </label>
+                  </div>
+                </div>
+
+                <button 
+                  type="submit" 
+                  disabled={isApproved}
+                  className={`w-full py-5 rounded-2xl font-black transition-all shadow-xl uppercase tracking-widest ${
+                    isApproved 
+                    ? 'bg-slate-300 text-slate-500 cursor-not-allowed shadow-none' 
+                    : 'bg-[#451a03] text-white hover:bg-[#2d1102]'
+                  }`}
+                >
+                  {isApproved ? 'Admission Locked' : (isSubmitted ? 'Update Application Details' : 'Submit Application')}
+                </button>
+              </form>
+            </div>
+          ) : (
+
+            <div className="animate-in fade-in duration-500">
+              {isApproved ? (
+                <div>
+                  <div className="mb-10 pb-4 border-b border-slate-100">
+                    <h3 className="text-2xl font-black text-[#451a03]">Account Setup</h3>
+                    <p className="text-slate-400 text-sm">Create your student portal access.</p>
+                  </div>
+
+                  <form className="space-y-10" onSubmit={(e) => e.preventDefault()}>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <InputField label="Student ID" readOnly value="2026-0001" />
+                      <div className="hidden md:block"></div>
+                      <InputField label="Password *" type="password" placeholder="••••••••" />
+                      <InputField label="Confirm Password *" type="password" placeholder="••••••••" />
+                    </div>
+
+                    <h4 className="text-sm font-black text-amber-600 uppercase tracking-widest mb-6 pt-4">Emergency Contact</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <InputField label="Contact Person *" placeholder="Full Name" />
+                      <InputField label="Relationship *" placeholder="e.g. Guardian" />
+                      <InputField label="Contact Number *" placeholder="+63 9xx xxx xxxx" />
+                    </div>
+
+                    <div className="pt-6">
+                      <label className="flex items-center gap-3 cursor-pointer group mb-10">
+                        <input type="checkbox" className="w-5 h-5 accent-green-600 rounded" />
+                        <span className="text-xs font-medium text-slate-500">I agree to the Data Privacy Policy and Enrollment Terms.</span>
+                      </label>
+                      <button type="submit" className="w-full py-5 bg-[#166534] text-white rounded-2xl font-black hover:bg-[#14532d] transition-all shadow-xl uppercase tracking-widest">
+                        Submit Enrollment Form
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center py-20 text-center">
+                  <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mb-6 text-slate-300 border-2 border-dashed border-slate-200">
+                    <i className="fas fa-lock text-3xl"></i>
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-400 mb-2 uppercase">Enrollment Locked</h3>
+                  <p className="text-slate-400 max-w-sm text-sm">Access is granted once the registrar approves your profile and <span className="text-[#451a03] font-black underline decoration-yellow-400">Opens Enrollment</span>.</p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        <div className="mt-12 text-center flex flex-col sm:flex-row justify-center gap-4 border-t border-slate-200 pt-6">
+           <p className="w-full text-xs font-bold text-slate-400 block mb-2 sm:mb-0">Testing Switches:</p>
+           <button 
+             onClick={() => setIsApproved(!isApproved)}
+             className="text-[9px] font-bold text-green-600 hover:text-green-800 uppercase tracking-[0.2em] transition-all"
+           >
+             {isApproved ? '🔒 Close Enrollment (Re-open Admission)' : '✅ Open Enrollment (Lock Admission Form)'}
+           </button>
         </div>
       </div>
     </div>
   );
-};
-
-export default AdmissionLanding;
+}
